@@ -1,11 +1,13 @@
 vars = {
-  "googlecode_url": "http://%s.googlecode.com/svn",
+  "googlecode_url": "http://%s.googlecode.com/svn"
 }
 
 deps = {
   "src/tools/gyp": (Var("googlecode_url") % "gyp") + "/trunk@971",
   "src/third_party/npapi":
-    (Var("googlecode_url") % "npapi-sdk") + "/trunk/headers@7"
+    (Var("googlecode_url") % "npapi-sdk") + "/trunk/headers@7",
+  "src/third_party/glog":
+    (Var("googlecode_url") % "google-glog") + "/trunk/@93"
 }
 
 hooks = [

@@ -1,0 +1,102 @@
+/* Copyright (c) 2011 The Chromium Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file.
+ */
+
+table.data-grid {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  font-family: Verdana;
+  border-collapse: collapse;
+  table-layout: fixed;
+  -webkit-user-select: none;
+}
+
+table.data-grid:focus {
+  outline: none;
+}
+
+.data-grid th, .data-grid td {
+  border: solid 1px #808080;
+  margin: 0px;
+  padding: 2px 4px;
+  background-color: inherit;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.data-grid th {
+  background-color: #E4E4E4;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 3px;
+}
+
+.data-grid td {
+  font-size: 13px;
+}
+
+.appendable.data-grid tr:last-of-type td:not(.being-edited) {
+  color: #A0A0A0;
+}
+
+.appendable.data-grid tr:last-of-type td:nth-of-type(2):not(.being-edited) .editable::after {
+  content: "New...";
+}
+
+.appendable.data-grid td:not(.being-edited) .editable:empty::after {
+  content: "\0000a0";
+}
+
+.data-grid td.being-edited {
+  border-color: black;
+  background-color: #FFFFE0;
+  text-overflow: clip;
+}
+
+.data-grid span.editable {
+  -webkit-user-select: text;
+  width: 100%;
+  display: inline-block;
+}
+
+.data-grid button {
+  width: 18px;
+  height: 16px;
+  border: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  visibility: hidden;
+}
+
+.delete-button {
+  background-image: url(img/remove.png);
+  background-position: center;
+  margin: 2px 4px 2px 0;
+}
+
+.data-grid tr:hover button {
+  visibility: visible;
+  opacity: 0.4;
+}
+
+.data-grid td:not(.being-edited) button:hover {
+  opacity: 1.0 !important;
+}
+
+
+.appendable.data-grid tr:last-of-type td button {
+  visibility: hidden;
+}
+
+.data-grid col:first-of-type {
+  width: 24px;
+}
+
+.data-grid td:first-of-type, .data-grid th:first-of-type {
+  border: none;
+  background: inherit;
+}

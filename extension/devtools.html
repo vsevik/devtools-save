@@ -1,0 +1,29 @@
+<!-- 
+Copyright (c) 2011 The Chromium Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file.
+-->
+<!DOCTYPE html>
+<html>
+<script type="text/javascript">
+var devtools = chrome.experimental.devtools || chrome.devtools;
+
+function error(message) {
+  devtools.inspectedWindow.eval("console.error(unescape('" + escape(message) + "'));");
+}
+
+function callback(response) {
+  var message;
+  if (!response.saved && response.actualTarget)
+    error("Failed to save " + response.actualTarget + ": " + response.error);
+}
+
+function onContentCommitted(resource, content) {
+  var url = resource.url;
+  url.replace(/[?#].*/, "");
+  chrome.extension.sendRequest({ url: url, content: content }, callback);
+}
+
+devtools.inspectedWindow.onResourceContentCommitted.addListener(onContentCommitted);
+</script>
+</html>
