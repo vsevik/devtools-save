@@ -3,9 +3,10 @@
 // found in the LICENSE file.
 #include "devtools_save.h"
 
+#include <string.h>
 #include <sys/types.h>
 #include <fcntl.h>
-#include "glog/logging.h"
+#include "logging.h"
 
 #include "config.h"
 #include "nputils.h"

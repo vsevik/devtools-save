@@ -2,24 +2,15 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <string.h>
+
+#include "logging.h"
 #include "npclass_impl.h"
 #include "nputils.h"
-
-#include "glog/logging.h"
 #include "third_party/npapi/npapi.h"
 #include "third_party/npapi/npfunctions.h"
 
 #define PLUGIN_MIME_TYPE "application/x-devtools-save-extension"
-
-static void MaybeInitializeLogging(void) {
-  static bool initialized = false;
-
-  if (initialized)
-    return;
-  initialized = true;
-  google::InitGoogleLogging("devtools-save");
-  google::LogToStderr();
-}
 
 static const char kPluginName[] = "DevTools Save plugin";
 static const char kPluginDescription[] = 
@@ -154,8 +145,6 @@ NPError OSCALL NP_Initialize(NPNetscapeFuncs *aNPNFuncs
                              , NPPluginFuncs *aNPPFuncs
 #endif
      ) {
-  MaybeInitializeLogging();
-  
   if (NPUtils::s_funcs) {
     LOG(ERROR) << "attempt to initialize second instance!";
     return NPERR_GENERIC_ERROR;
@@ -181,13 +170,10 @@ NPError OSCALL NP_Initialize(NPNetscapeFuncs *aNPNFuncs
 NPError OSCALL NP_Shutdown() {
   DLOG(INFO) << "shutting plugin down.";
   NPUtils::s_funcs = 0;
-  google::ShutdownGoogleLogging();
   return NPERR_NO_ERROR;
 }
 
 const char* OSCALL NP_GetMIMEDescription(void) {
-  MaybeInitializeLogging();
-
   return PLUGIN_MIME_TYPE "::DevTools Save Extension Plugin";
 }
 

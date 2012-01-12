@@ -5,7 +5,7 @@
 #include "nputils.h"
 
 #include <string.h>
-#include "glog/logging.h"
+#include "logging.h"
 
 NPNetscapeFuncs* NPUtils::s_funcs = 0;
 

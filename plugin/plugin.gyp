@@ -3,24 +3,19 @@
 # found in the LICENSE file.
 
 {
-  'includes': [
-    'glog.gypi'
-  ],
   'targets': [
     {
       'target_name': 'devtools-save',
       'type': 'loadable_module',
       'sources': [
+        'devtools_save.cc',
+        'logging.cc',
         'npp_entry.cc',
         'nputils.cc',
         'npclass_impl.cc',
-        'devtools_save.cc'
       ],
       'include_dirs': [
         '<(DEPTH)'
-      ],
-      'dependencies': [
-        'glog'
       ],
       'conditions': [
         ['OS=="linux"', {

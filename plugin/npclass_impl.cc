@@ -7,8 +7,8 @@
 #include <string.h>
 
 #include "devtools_save.h"
+#include "logging.h"
 #include "nputils.h"
-#include "glog/logging.h"
 #include "third_party/npapi/npfunctions.h"
 
 namespace {
