@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>devtools-save</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.googlecode.devtools-save</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleExecutable</key>
+	<string>devtools-save</string>
+	<key>CFBundleName</key>
+	<string>DevTools Save</string>
+	<key>CFBundlePackageType</key>
+	<string>BRPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>CFPlugInDynamicRegisterFunction</key>
+	<string></string>
+	<key>CFPlugInDynamicRegistration</key>
+	<string>NO</string>
+	<key>WebPluginDescription</key>
+	<string>DevTools Save extension plugin</string>
+	<key>WebPluginMIMETypes</key>
+	<dict>
+		<key>application/x-devtools-save-extension</key>
+		<dict>
+			<key>WebPluginExtensions</key>
+			<array>
+				<string>devtools-save</string>
+			</array>
+			<key>WebPluginTypeDescription</key>
+			<string>DevTools Save extension plugin</string>
+		</dict>
+	</dict>
+	<key>WebPluginName</key>
+	<string>DevTools Save extension plugin</string>
+</dict>
+</plist>
+

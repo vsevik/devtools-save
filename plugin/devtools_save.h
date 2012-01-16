@@ -5,6 +5,7 @@
 #ifndef DEVTOOLS_SAVE_H_
 #define DEVTOOLS_SAVE_H_
 
+#include "config.h"
 #include "third_party/npapi/npfunctions.h"
 
 class DevToolsSave : public NPObject {

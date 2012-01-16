@@ -18,7 +18,19 @@ img {
 </style>
 </head>
 <body>
-<p><img src="img/information.png">You have <code>devtools-save</code> extension installed, but the mapping for source file paths is not configured.<br/>
-Visit <a target="_blank" href="options.html" onclick="window.close()">options page</a> to configure the extension.
+<p><img src="img/information.png">You have <code>devtools-save</code> extension
+installed, but the mapping for source file paths is not configured.<br/>
+Visit <a id="options-link" href="options.html" target="_blank">options page</a>
+to configure the extension.
+</p>
+<script type="text/javascript">
+function onOptionsClicked(event) {
+  chrome.tabs.create({ url: event.target.href });
+  window.close();
+  event.preventDefault();
+} 
+var a = document.getElementById("options-link")
+a.addEventListener("click", onOptionsClicked, false);
+</script>
 </body>
 </html>

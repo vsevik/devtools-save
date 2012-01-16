@@ -1,0 +1,48 @@
+#include "winres.h"
+
+#ifdef APSTUDIO_INVOKED
+# error Do not open this in the GUI, it will be massacred on save. Do not do it.
+#endif // APSTUDIO_INVOKED
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,75,0,0
+ PRODUCTVERSION 0,75,0,0
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        // Note that Firefox 3.0 requires the charset to be 04e4 (multi-lingual).
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "The Chromium Authors"
+            VALUE "CompanyShortName", "Chromium"
+            VALUE "FileDescription", "DevTools Save plugin for Chrome."
+            VALUE "FileOpenName", "DevTools Save Plugin"
+            VALUE "FileVersion", "1, 11, 0, 0"
+            VALUE "InternalName", "devtools-save"
+            VALUE "LegalCopyright", "Copyright 2012 The Chromium Authors."
+            VALUE "MIMEType", "application/x-devtools-save-extension"
+            VALUE "OriginalFilename", "devtools-save.dll"
+            VALUE "ProductName", "DevTools Save Extension"
+            VALUE "ProductVersion", "0, 75, 0, 0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        // Note that Firefox 3.0 requires the charset to be 1252 (multi-lingual).
+        VALUE "Translation", 0x409, 1252
+    END
+END

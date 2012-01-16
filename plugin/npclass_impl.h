@@ -5,6 +5,7 @@
 #ifndef NPCLASS_IMPL_H_
 #define NPCLASS_IMPL_H_
 
+#include "config.h"
 #include "third_party/npapi/npfunctions.h"
 
 class NPClassImpl {

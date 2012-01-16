@@ -5,6 +5,7 @@
 #ifndef NPUTILS_H
 #define NPUTILS_H
 
+#include "config.h"
 #include <string>
 
 #include "third_party/npapi/npfunctions.h"

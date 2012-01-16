@@ -17,4 +17,9 @@
 #define OS_POSIX
 #endif
 
+#ifdef OS_WIN
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
+
 #endif // _CONFIG_H

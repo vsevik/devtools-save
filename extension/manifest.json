@@ -1,6 +1,6 @@
 {
   "name": "devtools-save",
-  "description": "Save files modified in Chrome DevTools",
+  "description": "Saves files modified in Chrome DevTools",
   "version": "0.7",
   "devtools_page": "devtools.html",
   "options_page": "options.html",
@@ -12,6 +12,8 @@
     "https://*/*"
   ],
   "plugins": [
+    { "path": "devtools-save.dll" },
+    { "path": "devtools-save.plugin" },
     { "path": "libdevtools-save.so" }
   ]
 }

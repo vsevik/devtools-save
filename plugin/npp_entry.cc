@@ -105,7 +105,14 @@ class NPP_Implementation {
       LOG(ERROR) << "only one instance is supported for security reasons!";
       return NPERR_INVALID_INSTANCE_ERROR;
     }
-    NPUtils::s_funcs->setvalue(instance, NPPVpluginWindowBool, 0);
+
+#ifdef _WINDOWS
+  int is_windowed = 1;
+#else
+  int is_windowed = 0;
+#endif
+    NPUtils::s_funcs->setvalue(instance, NPPVpluginWindowBool,
+                               reinterpret_cast<void*>(is_windowed));
     s_plugin = new Plugin(instance);
     instance->pdata = s_plugin;
     DLOG(INFO) << "created plugin instance.";
@@ -141,7 +148,7 @@ NPError OSCALL NP_GetEntryPoints(NPPluginFuncs* nppfuncs) {
 }
 
 NPError OSCALL NP_Initialize(NPNetscapeFuncs *aNPNFuncs
-#if !defined(WIN32)
+#if !defined(OS_WIN) && !defined(OS_MACOSX)
                              , NPPluginFuncs *aNPPFuncs
 #endif
      ) {
@@ -160,7 +167,7 @@ NPError OSCALL NP_Initialize(NPNetscapeFuncs *aNPNFuncs
     return NPERR_INVALID_FUNCTABLE_ERROR;
   }
   NPUtils::s_funcs = aNPNFuncs;
-#if !defined(_WIN32)
+#if !defined(OS_WIN) && !defined(OS_MACOSX)
   NP_GetEntryPoints(aNPPFuncs);
 #endif
   DLOG(INFO) << "initialized plugin.";
@@ -173,13 +180,14 @@ NPError OSCALL NP_Shutdown() {
   return NPERR_NO_ERROR;
 }
 
-const char* OSCALL NP_GetMIMEDescription(void) {
+// NB: ulnike others, this is not an OSCALL. It probably only matters on Windows.
+const char* NP_GetMIMEDescription(void) {
   return PLUGIN_MIME_TYPE "::DevTools Save Extension Plugin";
 }
 
 NPError OSCALL NP_GetValue(void* instance,
     NPPVariable variable, void *ret_value) {
-  NPP_Implementation::GetValue(static_cast<NPP>(instance), variable, ret_value);
+  return NPP_Implementation::GetValue(static_cast<NPP>(instance), variable, ret_value);
 }
 
 } // extern "C"

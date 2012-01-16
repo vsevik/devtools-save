@@ -36,14 +36,16 @@ BackgroundPage.prototype._save = function(target, content, sendResponse) {
   }
   if (/^https?:/.test(target))
     this._saveByDAV(target, content, callback.bind(this));
-  else if (/^file:\/\//.test(target))
-    this._saveLocally(target.replace(/^file:\/\//, ""), content, callback.bind(this));
+  else if (/^file:\/\//.test(target)) {
+    this._saveLocally(target.replace(/^file:\/\//, ""),
+        content, callback.bind(this));
+  }
 }
 
 BackgroundPage.prototype._saveLocally = function(target, content, callback) {
   if (!this._plugin.save) {
     callback(false, "No devtools-save plugin installed -- perhaps, unsupported platform? " +
-        "Only linux is supported so far.");
+        "Only linux mac are supported so far.");
     return;
   }
   var saved = false;
@@ -67,13 +69,16 @@ BackgroundPage.prototype._onStorageUpdated = function(event) {
 }
 
 BackgroundPage.prototype._notifyError = function(filename, error) {
-  var notification = webkitNotifications.createNotification("img/error.png", "Error saving file!", filename + ": " + error);
+  var notification = webkitNotifications.createNotification("img/error.png",
+      "Error saving file!", filename + ": " + error);
   notification.show();
 }
 
 BackgroundPage.prototype._notifySuccess = function(filename) {
-  var notification = webkitNotifications.createNotification("img/saved-ok.png", "Saved ok", "Successfuly saved " + filename);
-  notification.addEventListener("display", BackgroundPage._onDisplayNotification, false);
+  var notification = webkitNotifications.createNotification(
+      "img/saved-ok.png", "Saved ok", "Successfuly saved " + filename);
+  notification.addEventListener("display",
+      BackgroundPage._onDisplayNotification, false);
   notification.show();
 }
 
@@ -81,7 +86,8 @@ BackgroundPage.prototype._issueConfigurationNotice = function(filename) {
   var key = "config-notification-given";
   if (localStorage.getItem(key))
     return;
-  var notification = webkitNotifications.createHTMLNotification("config-notification.html");
+  var notification = webkitNotifications.createHTMLNotification(
+      "config-notification.html");
   notification.show();
   localStorage.setItem(key, "yes");
 }
