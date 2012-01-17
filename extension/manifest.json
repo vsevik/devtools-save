@@ -1,7 +1,7 @@
 {
   "name": "devtools-save",
   "description": "Saves files modified in Chrome DevTools",
-  "version": "0.75",
+  "version": "0.77",
   "devtools_page": "devtools.html",
   "options_page": "options.html",
   "background_page": "background.html",

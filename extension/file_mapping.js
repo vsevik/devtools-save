@@ -22,7 +22,10 @@ FileMapEntry.prototype._map = function(webPath) {
       else
         return;
   }
-  return webPath.replace(this.webPath, this.publishTo);
+  var publishTo = this.publishTo;
+  if (!/\/$/.test(publishTo) && /\/$/.test(matchAgainst))
+      publishTo += "/";
+  return webPath.replace(matchAgainst, publishTo);
 }
 
 FileMapEntry.prototype._save = function() {
