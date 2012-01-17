@@ -95,6 +95,7 @@ DataGrid.prototype._commitEditing = function() {
 DataGrid.prototype._completeEditing = function() {
   var td = enclosingOrSelfWithName(this._elementBeingEdited, "td");
   td.classList.remove("being-edited");
+  td.scrollLeft = 0;
   delete this._savedContent;
   this._elementBeingEdited.removeEventListener("blur", this._boundOnBlur, false);
   this._elementBeingEdited.contentEditable = "inherit";

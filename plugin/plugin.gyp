@@ -8,31 +8,48 @@
     '../build/plugin-version.gypi'
   ],
   'variables': {
+    'plugin_sources': [
+      'config.h',
+      'devtools_save.cc',
+      'devtools_save.h',
+      'logging.cc',
+      'logging.h',
+      'npp_entry.cc',
+      'nputils.cc',
+      'nputils.h',
+      'npclass_impl.cc',
+      'npclass_impl.h',
+    ],
     'conditions': [
       [ 'OS=="mac"', {
-          'plugin_file': 'devtools-save.plugin',
-        }, {
-          'plugin_file': '<(SHARED_LIB_PREFIX)devtools-save<(SHARED_LIB_SUFFIX)',
+          'plugin_files': [ '<(PRODUCT_DIR)/devtools-save.plugin', ]
         }
-      ]
+      ],
+      [ 'OS=="linux"', {
+          'plugin_files': [
+            '<(PRODUCT_DIR)/<(SHARED_LIB_PREFIX)devtools-save-x64'
+                '<(SHARED_LIB_SUFFIX)',
+            '<(PRODUCT_DIR)/<(SHARED_LIB_PREFIX)devtools-save-ia32'
+                '<(SHARED_LIB_SUFFIX)',
+          ]
+        }
+      ],
+      [ 'OS=="win"', {
+          'plugin_files': [
+            '<(PRODUCT_DIR)/<(SHARED_LIB_PREFIX)devtools-save'
+                '<(SHARED_LIB_SUFFIX)'
+          ]
+        }
+      ],
     ]
   },
   'targets': [
     {
-      'target_name': 'devtools-save',
       'type': 'loadable_module',
+      'target_name': 'devtools-save',
       'mac_bundle': 1,
       'sources': [
-        'config.h',
-        'devtools_save.cc',
-        'devtools_save.h',
-        'logging.cc',
-        'logging.h',
-        'npp_entry.cc',
-        'nputils.cc',
-        'nputils.h',
-        'npclass_impl.cc',
-        'npclass_impl.h',
+        '<@(plugin_sources)'
       ],
       'include_dirs': [
         '<(DEPTH)'
@@ -40,15 +57,16 @@
       'conditions': [
         ['OS=="linux"', {
           'cflags': [
-            '-fPIC'
-          ]
+            '-fPIC',
+          ],
+          'product_name': 'devtools-save-x64'
         }],
         ['OS=="mac"', {
           'product_extension': 'plugin'
         }],
         ['OS=="win"', {
           'sources': [ 'plugin.rc' ]
-        }],
+        }]
       ],
       'msvs_settings': {
         'VCLinkerTool': {
@@ -62,13 +80,48 @@
     {
       'target_name': 'publish-plugin',
       'type': 'none',
-      'dependencies': [ 'devtools-save' ],
+      'dependencies': [
+        'devtools-save'
+      ],
       'copies': [
         {
-          'destination': '<(devtools-save_staging_area)/<(devtools_plugin_version)',
-          'files': [ '<(PRODUCT_DIR)/<(plugin_file)' ]
+          'files': [ '<@(plugin_files)' ],
+          'destination': '<(devtools-save_staging_area)/'
+              '<(devtools_plugin_version)/'
         }
+      ],
+      'conditions': [
+        [ 'OS=="linux"', {
+            'dependencies': [
+              'devtools-save-ia32'
+            ],
+          }
+        ]
       ]
     }
+  ],
+  'conditions': [
+    [ 'OS=="linux"', {
+        'targets': [
+          {
+            'target_name': 'devtools-save-ia32',
+            'type': 'loadable_module',
+            'sources': [
+              '<@(plugin_sources)'
+            ],
+            'include_dirs': [
+              '<(DEPTH)'
+            ],
+            'cflags': [
+              '-fPIC',
+              '-m32'
+            ],
+            'ldflags': [
+              '-m32'
+            ]
+          }
+        ]
+      }
+    ]
   ]
 }

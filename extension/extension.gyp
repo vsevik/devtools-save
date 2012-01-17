@@ -26,7 +26,8 @@
       'img/remove.png',
       'img/saved-ok.png'
     ],
-    'plugin_file_linux': 'libdevtools-save.so',
+    'plugin_file_linux_ia32': 'libdevtools-save-ia32.so',
+    'plugin_file_linux_x64': 'libdevtools-save-x64.so',
     'plugin_file_mac': 'devtools-save.plugin',
     'plugin_file_win': 'devtools-save.dll',
     'conditions': [
@@ -87,7 +88,8 @@
           'action_name': 'pull-in-plugin-binaries',
           'variables': {
             'devtools_plugin_files': [
-              '<(devtools-save_staging_area)/<(devtools_plugin_version)/<(plugin_file_linux)',
+              '<(devtools-save_staging_area)/<(devtools_plugin_version)/<(plugin_file_linux_ia32)',
+              '<(devtools-save_staging_area)/<(devtools_plugin_version)/<(plugin_file_linux_x64)',
               '<(devtools-save_staging_area)/<(devtools_plugin_version)/<(plugin_file_win)',
               '<(devtools-save_staging_area)/<(devtools_plugin_version)/<(plugin_file_mac)',
             ]
@@ -95,7 +97,8 @@
           'inputs': [
           ],
           'outputs': [
-            '<(SHARED_INTERMEDIATE_DIR)/devtools-save/<(plugin_file_linux)',
+            '<(SHARED_INTERMEDIATE_DIR)/devtools-save/<(plugin_file_linux_ia32)',
+            '<(SHARED_INTERMEDIATE_DIR)/devtools-save/<(plugin_file_linux_x64)',
             '<(SHARED_INTERMEDIATE_DIR)/devtools-save/<(plugin_file_win)',
             '<(SHARED_INTERMEDIATE_DIR)/devtools-save/<(plugin_file_mac)',
           ],

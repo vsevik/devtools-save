@@ -1,5 +1,5 @@
 {
   'variables': {
-    'devtools_plugin_version': 1
+    'devtools_plugin_version': 2
   }
 }

@@ -44,8 +44,8 @@ BackgroundPage.prototype._save = function(target, content, sendResponse) {
 
 BackgroundPage.prototype._saveLocally = function(target, content, callback) {
   if (!this._plugin.save) {
-    callback(false, "No devtools-save plugin installed -- perhaps, unsupported platform? " +
-        "Only linux mac are supported so far.");
+    callback(false, "No devtools-save plugin installed -- perhaps, " + 
+        "unsupported platform?");
     return;
   }
   var saved = false;

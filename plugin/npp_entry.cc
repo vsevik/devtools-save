@@ -107,9 +107,9 @@ class NPP_Implementation {
     }
 
 #ifdef _WINDOWS
-  int is_windowed = 1;
+    int is_windowed = 1;
 #else
-  int is_windowed = 0;
+    int is_windowed = 0;
 #endif
     NPUtils::s_funcs->setvalue(instance, NPPVpluginWindowBool,
                                reinterpret_cast<void*>(is_windowed));
