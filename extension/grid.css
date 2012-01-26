@@ -1,4 +1,4 @@
-/* Copyright (c) 2011 The Chromium Authors. All rights reserved.
+/* Copyright (c) 2012 The Chromium Authors. All rights reserved.
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
@@ -44,7 +44,11 @@ table.data-grid:focus {
 }
 
 .appendable.data-grid tr:last-of-type td:nth-of-type(2):not(.being-edited) .editable::after {
-  content: "New...";
+  content: "URL prefix, e.g. http://example.com/";
+}
+
+.appendable.data-grid tr:last-of-type td:nth-of-type(3):not(.being-edited) .editable::after {
+  content: "Path to save to, e.g. /home/user/www/example";
 }
 
 .appendable.data-grid td:not(.being-edited) .editable:empty::after {
@@ -66,6 +70,15 @@ table.data-grid:focus {
 .data-grid td:not(.being-edited) span.editable {
   text-overflow: ellipsis;
   overflow-x: hidden;
+}
+
+.data-grid td:not(.being-edited) span.editable.warning {
+  color: rgb(255, 55, 55);
+}
+
+.data-grid td:not(.being-edited) span.editable.warning::before {
+  content: url(img/warning.png);
+  float: right;
 }
 
 .data-grid button {
@@ -91,7 +104,6 @@ table.data-grid:focus {
 .data-grid td:not(.being-edited) button:hover {
   opacity: 1.0 !important;
 }
-
 
 .appendable.data-grid tr:last-of-type td button {
   visibility: hidden;

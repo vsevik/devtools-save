@@ -1,12 +1,36 @@
-// Copyright (c) 2011 The Chromium Authors. All rights reserved.
+// Copyright (c) 2012 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 function BackgroundPage() {
   this._plugin = document.getElementById("save-plugin");
+  this._initMessages();
   this._mapping = new FileMapping();
   chrome.extension.onRequest.addListener(this._onRequest.bind(this));
   window.addEventListener("storage", this._onStorageUpdated.bind(this), false);
+}
+
+BackgroundPage.prototype._initMessages = function(plugin) {
+  this._messages = [];
+  var plugin = this._plugin;
+  if (!plugin)
+    return;
+  this._messages[plugin.ERR_NOT_FOUND] =
+      "File or path not found. NOTE: we only write to existing files.";
+  this._messages[plugin.ERR_NO_ACCESS] =
+      "Access denied.";
+  this._messages[plugin.ERR_EXECUTABLE] =
+      "Refusing to write to an executable file.";
+  this._messages[plugin.ERR_BACKREFERENCE] =
+      "Path contains backreferences.";
+  this._messages[plugin.ERR_RELATIVE_PATH] =
+      "Path is relative. Please specify absolute path.";
+  this._messages[plugin.ERR_MISSING_ALLOW_DEVTOOLS] =
+      "Missing .allow-devtools file in path from file to root.";
+  this._messages[plugin.ERR_WRITE_FAILED] =
+      "Failed while writing to file. Perhaps, disk full or network error?";
+  this._messages[plugin.ERR_INTERNAL] =
+      "Internal error, please check logs and report to developers.";
 }
 
 BackgroundPage.prototype._onRequest = function(request, sender, sendResponse) {
@@ -36,10 +60,8 @@ BackgroundPage.prototype._save = function(target, content, sendResponse) {
   }
   if (/^https?:/.test(target))
     this._saveByDAV(target, content, callback.bind(this));
-  else if (/^file:\/\//.test(target)) {
-    this._saveLocally(target.replace(/^file:\/\//, ""),
-        content, callback.bind(this));
-  }
+  else
+    this._saveLocally(target, content, callback.bind(this));
 }
 
 BackgroundPage.prototype._saveLocally = function(target, content, callback) {
@@ -51,12 +73,26 @@ BackgroundPage.prototype._saveLocally = function(target, content, callback) {
   var saved = false;
   var error;
   try {
-    this._plugin.save(target, content);
-    saved = true;
+    var rc = this._plugin.save(target, content);
+    if (!rc)
+      saved = true;
+    else
+      error = this._messages[rc] || ("Uknown error while saving file: " + rc);
   } catch (e) {
     error = e.toString();
   }
   callback(saved, error);
+}
+
+BackgroundPage.prototype.testLocalPath = function(path) {
+  if (!this._plugin) {
+    return "Unable to save locally, missing plugin object " +
+        "(perhaps, an unsupported platform).";
+  }
+  var rc = this._plugin.testPath(path);
+  if (!rc)
+    return;
+  return this._messages[rc] || ("Uknown error accessing path: " + rc);
 }
 
 BackgroundPage.prototype._saveByDAV = function(target, content, callback) {

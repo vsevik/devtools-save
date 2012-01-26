@@ -6,7 +6,9 @@ function MappingEditor(fileMapping, parent) {
   this._fileMapping = fileMapping;
   this._boundOnDelete = this._onDelete.bind(this);
   this._dataGrid = new DataGrid(this._createRow.bind(this));
-  this._dataGrid.setColumns(["", "Web URL prefix", "Local directory to save to"]);
+  this._dataGrid.setColumns(["",
+                             "Web URL prefix",
+                             "Local directory to save to"]);
   this._dataGrid.setRowFactory(this._createRow.bind(this));
   this._dataGrid.element.setAttribute("spellcheck", false);
   this._dataGrid.setCommitCallback(this._onCommitCallback.bind(this));
@@ -27,11 +29,13 @@ MappingEditor.prototype._createRow = function(mapEntry) {
   deleteButton.title = "Delete map entry";
   deleteButton.addEventListener("click", this._boundOnDelete, false);
   deleteButton._mapEntry = mapEntry;
+  var publishToCell = this._createCell(mapEntry.publishTo);
+  this._updateLocalPathWarning(publishToCell);
 
   return [
     deleteButton,
     this._createCell(mapEntry.webPath),
-    this._createCell(mapEntry.publishTo)
+    publishToCell
   ];
 }
 
@@ -56,6 +60,7 @@ MappingEditor.prototype._onCommitCallback = function(target) {
     entry.webPath = webPath;
     entry.publishTo = publishTo;
     this._fileMapping.update(entry);
+    this._updateLocalPathWarning(publishToCell);
   }
 }
 
@@ -68,19 +73,34 @@ MappingEditor.prototype._normalizeWebPath = function(path) {
   return path;
 }
 
+MappingEditor.prototype._isLocalPath = function(path) {
+    return !/^https?:/.test(path);
+}
+
 MappingEditor.prototype._normalizePublishTo = function(path) {
   path.trim();
-  if (!path)
-    return path;
-  if (!/^(file:|https?:)/.test(path))
-    path = "file://" + path;
+  path = path.replace(/^file:\/\//, "");
   return path;
 }
 
-MappingEditor.prototype._createCell = function(cellContent) {
+MappingEditor.prototype._updateLocalPathWarning = function(cell) {
+  var backgroundPage = chrome.extension.getBackgroundPage().backgroundPage;
+  var path = cell.textContent;
+  var warning = path && this._isLocalPath(path) &&
+                    backgroundPage.testLocalPath(path);
+  if (warning) {
+    cell.title = warning;
+    cell.classList.add("warning");
+  } else {
+    cell.title = "";
+    cell.classList.remove("warning");
+  }
+}
+
+MappingEditor.prototype._createCell = function(textContent) {
   var span = document.createElement("span");
-  span.className = "editable";
-  span.textContent = cellContent || "";
+  span.classList.add("editable");
+  span.textContent = textContent || "";
   return span;
 }
 

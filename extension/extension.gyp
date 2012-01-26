@@ -4,10 +4,11 @@
 {
   'includes': [
     '../build/common.gypi',
-    '../build/plugin-version.gypi'
+    '../build/version.gypi'
   ],
   'variables': {
-    'extension_crx_file': '<(PRODUCT_DIR)/devtools-save.crx',
+    'extension_crx_file':
+        '<(PRODUCT_DIR)/devtools-save-<(devtools-save_version).crx',
     'extension_files': [
       'background.html',
       'background.js',
@@ -22,6 +23,7 @@
     ],
     'extension_images': [
       'img/error.png',
+      'img/warning.png',
       'img/information.png',
       'img/remove.png',
       'img/saved-ok.png'
@@ -107,6 +109,28 @@
             '-R',
             '<@(devtools_plugin_files)',
             '<(SHARED_INTERMEDIATE_DIR)/devtools-save'
+          ]
+        }
+      ]
+    },
+    {
+      'target_name': 'upload',
+      'type': 'none',
+      'dependencies': [
+        'devtools-save'
+      ],
+      'actions': [
+        {
+          'action_name': 'upload-extension',
+          'inputs': [ '<(extension_crx_file)' ],
+          'outputs': [ 'none' ],
+          'action': [
+            '<(DEPTH)/third_party/googlecode/scripts/googlecode_upload.py',
+            '-p',
+            'devtools-save',
+            '-s',
+            'DevTools Save extension v<(devtools-save_version)',
+            '<(extension_crx_file)'
           ]
         }
       ]

@@ -5,7 +5,7 @@
 {
   'includes': [
     '../build/common.gypi',
-    '../build/plugin-version.gypi'
+    '../build/version.gypi'
   ],
   'variables': {
     'plugin_sources': [

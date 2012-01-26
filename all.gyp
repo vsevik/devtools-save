@@ -7,9 +7,9 @@
       'target_name': 'All',
       'type': 'none',
       'dependencies': [
-        'extension/extension.gyp:*',
+        'extension/extension.gyp:devtools-save',
         'plugin/plugin.gyp:publish-plugin'
       ]
-    },
+    }
   ]
 }

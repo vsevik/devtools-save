@@ -7,7 +7,9 @@ deps = {
   "src/third_party/npapi":
     (Var("googlecode_url") % "npapi-sdk") + "/trunk/headers@7",
   "src/third_party/glog":
-    (Var("googlecode_url") % "google-glog") + "/trunk/@93"
+    (Var("googlecode_url") % "google-glog") + "/trunk/@93",
+  "src/third_party/googlecode":
+    (Var("googlecode_url") % "support") + "/trunk@630"
 }
 
 deps_os = {

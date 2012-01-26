@@ -10,7 +10,19 @@
 
 class DevToolsSave : public NPObject {
  public:
-  void Save(const char* filename, const char* content);
+  enum ResultCode {
+    ERR_OK,
+    ERR_NOT_FOUND,
+    ERR_NO_ACCESS,
+    ERR_EXECUTABLE,
+    ERR_BACKREFERENCE,
+    ERR_RELATIVE_PATH,
+    ERR_MISSING_ALLOW_DEVTOOLS,
+    ERR_WRITE_FAILED,
+    ERR_INTERNAL
+  };
+  ResultCode Save(const char* filename, const char* content);
+  ResultCode TestPath(const char* path);
 };
 
 #endif // DEVTOOLS_SAVE_H_
