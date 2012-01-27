@@ -85,7 +85,7 @@ BackgroundPage.prototype._saveLocally = function(target, content, callback) {
 }
 
 BackgroundPage.prototype.testLocalPath = function(path) {
-  if (!this._plugin) {
+  if (!this._plugin || !this._plugin.testPath) {
     return "Unable to save locally, missing plugin object " +
         "(perhaps, an unsupported platform).";
   }

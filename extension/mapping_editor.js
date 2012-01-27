@@ -18,6 +18,7 @@ function MappingEditor(fileMapping, parent) {
     this._dataGrid.appendRow(this._createRow(map[i]));
 
   parent.appendChild(this._dataGrid.element);
+  this._dataGrid.updateFocus();
 }
 
 MappingEditor.prototype._createRow = function(mapEntry) {
