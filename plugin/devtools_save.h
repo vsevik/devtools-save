@@ -8,7 +8,7 @@
 #include "config.h"
 #include "third_party/npapi/npfunctions.h"
 
-class DevToolsSave : public NPObject {
+class DevToolsSave {
  public:
   enum ResultCode {
     ERR_OK,

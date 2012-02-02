@@ -12,13 +12,13 @@
       'config.h',
       'devtools_save.cc',
       'devtools_save.h',
+      'devtools_save_bindings.cc',
+      'devtools_save_bindings.h',
       'logging.cc',
       'logging.h',
       'npp_entry.cc',
       'nputils.cc',
       'nputils.h',
-      'npclass_impl.cc',
-      'npclass_impl.h',
     ],
     'conditions': [
       [ 'OS=="mac"', {

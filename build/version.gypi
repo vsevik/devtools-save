@@ -1,6 +1,6 @@
 {
   'variables': {
-    'devtools_plugin_version': 3,
+    'devtools_plugin_version': 4,
     'devtools-save_version': "0.81"
   }
 }

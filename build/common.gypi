@@ -11,6 +11,12 @@
           'msvs_cygwin_dirs': ['<(DEPTH)/third_party/cygwin']
         }
       }
+    ],
+    ['OS!="win"', {
+        'target_defaults': {
+          'cflags': ['-Wall', '-Werror']
+        }
+      }
     ]
   ]
 }

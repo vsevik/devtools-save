@@ -5,8 +5,7 @@
 #include <string.h>
 
 #include "logging.h"
-#include "npclass_impl.h"
-#include "nputils.h"
+#include "devtools_save_bindings.h"
 #include "third_party/npapi/npapi.h"
 #include "third_party/npapi/npfunctions.h"
 
@@ -40,23 +39,23 @@ class NPP_Implementation {
         break;
 
       case NPPVpluginScriptableNPObject: {
-          if (!instance || instance->pdata != s_plugin) {
-            LOG(ERROR) << "invalid instance pointer!";
-            return NPERR_INVALID_INSTANCE_ERROR;
-          }
-
-          NPObject* npobject = s_plugin->GetNPObject();
-          if (!npobject) {
-            npobject = NPUtils::s_funcs->createobject(instance,
-                                                      NPClassImpl::GetClass());
-            s_plugin->SetNPObject(npobject);
-          }
-          if (npobject)
-            NPUtils::s_funcs->retainobject(npobject);
-        
-          *static_cast<NPObject**>(ret_value) = s_plugin->GetNPObject();
-          break;
+        if (!instance || instance->pdata != s_plugin) {
+          LOG(ERROR) << "invalid instance pointer!";
+          return NPERR_INVALID_INSTANCE_ERROR;
         }
+
+        NPObject* npobject = s_plugin->GetNPObject();
+        if (!npobject) {
+          npobject = NPUtils::s_funcs->createobject(instance,
+              DevToolsSaveBindings::GetClass());
+          s_plugin->SetNPObject(npobject);
+        }
+        if (npobject)
+          NPUtils::s_funcs->retainobject(npobject);
+
+        *static_cast<NPObject**>(ret_value) = s_plugin->GetNPObject();
+        break;
+      }
 
       default:
         return NPERR_GENERIC_ERROR;
