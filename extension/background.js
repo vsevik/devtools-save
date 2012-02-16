@@ -26,7 +26,7 @@ BackgroundPage.prototype._initMessages = function(plugin) {
   this._messages[plugin.ERR_RELATIVE_PATH] =
       "Path is relative. Please specify absolute path.";
   this._messages[plugin.ERR_MISSING_ALLOW_DEVTOOLS] =
-      "Missing .allow-devtools file in path from file to root.";
+      "Missing .allow-devtools-save file in path from file to root.";
   this._messages[plugin.ERR_WRITE_FAILED] =
       "Failed while writing to file. Perhaps, disk full or network error?";
   this._messages[plugin.ERR_INTERNAL] =
