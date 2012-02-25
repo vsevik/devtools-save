@@ -61,8 +61,8 @@ MappingEditor.prototype._onCommitCallback = function(target) {
     entry.webPath = webPath;
     entry.publishTo = publishTo;
     this._fileMapping.update(entry);
-    this._updateLocalPathWarning(publishToCell);
   }
+  this._updateLocalPathWarning(publishToCell);
 }
 
 MappingEditor.prototype._normalizeWebPath = function(path) {
