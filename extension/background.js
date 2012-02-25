@@ -38,7 +38,9 @@ BackgroundPage.prototype._onRequest = function(request, sender, sendResponse) {
     this._issueConfigurationNotice();
     return;
   }
-  var target = this._mapping.map(request.url);
+  var url = request.url.replace(/[?#].*/, "");
+  url = decodeURIComponent(url);
+  var target = this._mapping.map(url);
   if (!target) {
     sendResponse({ saved: false });
     return;
