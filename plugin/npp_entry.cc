@@ -105,13 +105,18 @@ class NPP_Implementation {
       return NPERR_INVALID_INSTANCE_ERROR;
     }
 
-#ifdef _WINDOWS
+#if defined(OS_WIN)
     int is_windowed = 1;
 #else
     int is_windowed = 0;
 #endif
     NPUtils::s_funcs->setvalue(instance, NPPVpluginWindowBool,
                                reinterpret_cast<void*>(is_windowed));
+#if defined(OS_MACOSX)
+    // Work-around for Chrome thinking we're QuickDraw, which is unsupported.
+    NPUtils::s_funcs->setvalue(instance, NPPVpluginDrawingModel,
+                               reinterpret_cast<void*>(NPDrawingModelCoreGraphics));
+#endif
     s_plugin = new Plugin(instance);
     instance->pdata = s_plugin;
     DLOG(INFO) << "created plugin instance.";
