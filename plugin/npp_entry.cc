@@ -113,7 +113,11 @@ class NPP_Implementation {
     NPUtils::s_funcs->setvalue(instance, NPPVpluginWindowBool,
                                reinterpret_cast<void*>(is_windowed));
 #if defined(OS_MACOSX)
-    // Work-around for Chrome thinking we're QuickDraw, which is unsupported.
+    // We don't eplicitly use either, but if we don't change the default ones,
+    // the browser will refuse to load plugin due to non-supported defaults being
+    // used.
+    NPUtils::s_funcs->setvalue(instance, NPPVpluginEventModel,
+					           reinterpret_cast<void*>(NPEventModelCocoa));
     NPUtils::s_funcs->setvalue(instance, NPPVpluginDrawingModel,
                                reinterpret_cast<void*>(NPDrawingModelCoreGraphics));
 #endif
