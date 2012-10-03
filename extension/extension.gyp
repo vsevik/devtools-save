@@ -20,6 +20,7 @@
       'mapping_editor.js',
       'config-notification.html',
       'options.html',
+      'options.css',
     ],
     'extension_images': [
       'img/error.png',
