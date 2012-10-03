@@ -125,7 +125,7 @@ BackgroundPage.prototype._issueConfigurationNotice = function(filename) {
   if (localStorage.getItem(key))
     return;
   var notification = webkitNotifications.createHTMLNotification(
-      "config-notification.html");
+      "config_notification.html");
   notification.show();
   localStorage.setItem(key, "yes");
 }

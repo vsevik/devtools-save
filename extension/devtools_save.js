@@ -1,4 +1,4 @@
-var devtools = chrome.experimental.devtools || chrome.devtools;
+var devtools = chrome.devtools || chrome.experimental.devtools;
 
 function error(message) {
   devtools.inspectedWindow.eval("console.error(unescape('" + escape(message) + "'));");

@@ -18,5 +18,10 @@
     { "path": "devtools-save.plugin" },
     { "path": "libdevtools-save-x64.so" },
     { "path": "libdevtools-save-ia32.so" }
+  ],
+  "web_accessible_resources": [
+    "img/saved-ok.png",
+    "img/error.png",
+    "img/information.png"
   ]
 }
