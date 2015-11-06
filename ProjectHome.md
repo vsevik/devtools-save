@@ -1,0 +1,1 @@
+This is a Chrome DevTools extension that supports saving files edited in the DevTools to local disk.
